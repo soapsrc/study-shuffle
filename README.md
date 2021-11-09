@@ -1,5 +1,5 @@
 # study-shuffle
-Arduino project that plays a random study playlist on YouTube.
+Arduino project that plays a random ambience video from YouTube based on a chosen category.
 
 ## Prequisites
 - Python3 (version 3.0 or newer)
