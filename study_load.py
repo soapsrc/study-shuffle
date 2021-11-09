@@ -11,10 +11,10 @@ class Category:
 
 def driverSetup():
         # Hides the browser window containing the search results
-    co = webdriver.ChromeOptions()
-    co.add_argument('headless')
-    co.add_argument('window-size=1920x1080')
-    co.add_argument("disable-gpu")
+   # co = webdriver.ChromeOptions()
+    #co.add_argument('headless')
+   # co.add_argument('window-size=1920x1080')
+    #co.add_argument("disable-gpu")
     # Path to webdriver
     serv = Service('./chromedriver')
     browser = webdriver.Chrome(service=serv, options=co)
@@ -44,3 +44,5 @@ def loadUrls(browser):
         print(categories[i].urls)
         # Sleep for 2 seconds to make sure webpage has been thoroughly parsed
         time.sleep(2)
+    
+    return categories
