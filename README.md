@@ -9,7 +9,6 @@ Arduino project that plays a random ambience video from YouTube based on a chose
 Invoke the following on the command line:
 1. `pip3 install beautifulsoup4`
 2. `pip3 install selenium`
-3. `brew cask install chromedriver`
 3. `python3 study_shuffle.py`
 
 ### Non-MacOS users, please download the proper ChromeDiver for your OS here: https://sites.google.com/chromium.org/driver/
