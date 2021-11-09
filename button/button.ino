@@ -1,17 +1,25 @@
-#include "Bridge.h"
-#include "Process.h"
+// Code obtained from https://create.arduino.cc/projecthub/ansh2919/serial-communication-between-python-and-arduino-e7cce0
 
-Process p;
-
-void setup() {
-  Serial.begin(9600);
-  Bridge.begin();
+int data;
+int LED=8;
+void setup() { 
+  Serial.begin(9600);                               //initialize serial COM at 9600 baudrate
+  pinMode(LED, OUTPUT);                    //declare the LED pin (13) as output
+  digitalWrite (LED, LOW);                     //Turn OFF the Led in the beginning
   
-  p.begin("/mnt/sda1/test.py");
-  p.runAsynchronously();
+  Serial.println("Hello!,How are you Python ?");
 }
-
 void loop() {
-  while (p.available() )
-    Serial.print((char)p.read());
+  while (Serial.available())    //whatever the data that is coming in serially and assigning the value to the variable “data”
+  { 
+    data = Serial.read();
+  }
+  if (data == '1'){
+    digitalWrite (LED, HIGH);                  //Turn On the Led
+    Serial.println("LED turned on");
+  }
+  else if (data == '0'){
+    digitalWrite (LED, LOW);                  //Turn OFF the Led
+    Serial.println("LED turned off");
+  }
 }
