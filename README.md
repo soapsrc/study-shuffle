@@ -7,8 +7,9 @@ Arduino project that plays a random ambience video from YouTube based on a chose
 
 ## How to run simu.py
 Invoke the following on the command line:
-1. `pip3 install beautifulsoup4`
-2. `pip3 install selenium`
-3. `python3 simu.py`
+1. `cd src`
+2. `pip3 install beautifulsoup4`
+3. `pip3 install selenium`
+4. `python3 simu.py`
 
 ### Non-MacOS users, please download the proper ChromeDiver for your OS here: https://sites.google.com/chromium.org/driver/
