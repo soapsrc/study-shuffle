@@ -1,25 +1,30 @@
-// Code obtained from https://create.arduino.cc/projecthub/ansh2919/serial-communication-between-python-and-arduino-e7cce0
 
-int data;
-int LED=8;
-void setup() { 
-  Serial.begin(9600);                               //initialize serial COM at 9600 baudrate
-  pinMode(LED, OUTPUT);                    //declare the LED pin (13) as output
-  digitalWrite (LED, LOW);                     //Turn OFF the Led in the beginning
-  
-  Serial.println("Hello!,How are you Python ?");
+// constants won't change. They're used here to set pin numbers:
+const int buttonPin = A8;     // the number of the pushbutton pin
+const int ledPin =  8;      // the number of the LED pin
+
+// variables will change:
+int buttonState = 0;         // variable for reading the pushbutton status
+
+void setup() {
+  Serial.begin(9600);   
+  // initialize the LED pin as an output:
+  pinMode(ledPin, OUTPUT);
+  // initialize the pushbutton pin as an input:
+  pinMode(buttonPin, INPUT);
 }
+
 void loop() {
-  while (Serial.available())    //whatever the data that is coming in serially and assigning the value to the variable “data”
-  { 
-    data = Serial.read();
-  }
-  if (data == '1'){
-    digitalWrite (LED, HIGH);                  //Turn On the Led
-    Serial.println("LED turned on");
-  }
-  else if (data == '0'){
-    digitalWrite (LED, LOW);                  //Turn OFF the Led
-    Serial.println("LED turned off");
+  // read the state of the pushbutton value:
+  buttonState = digitalRead(buttonPin);
+
+  // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
+  if (buttonState == HIGH) {
+    // turn LED on:
+    digitalWrite(ledPin, HIGH);
+    Serial.println(1);
+  } else {
+    // turn LED off:
+    digitalWrite(ledPin, LOW);
   }
 }
