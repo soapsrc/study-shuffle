@@ -13,8 +13,8 @@ def write_data(x):
 
 def read_data():
     data = arduino.readline().decode("utf-8")
-    if(len(data) > 0):
-        print(data)
+    #if(len(data) > 0):
+        #print(data)
     return data
 
 # Load all YouTube Urls
@@ -32,7 +32,6 @@ while True:
         set1 = set(value.split())
         set2 = set(trigger.split())
         if(set1 == set2):
-            print("Button pressed")
             # Disable button
             write_data("d")
             buttonPressed = True

@@ -21,13 +21,13 @@ def driverSetup():
     return browser
 
 def loadUrls(browser):
+    # Feel free to change the categories
     queries = ['anime', 'beach', 'window', 'r&b']
     hrefs = []
     categories = []
-
+    print("✮*•̩̩͙✧•̩̩͙*˚✧*˚　Loading YouTube Videos in Each Category　˚*✧˚*•̩̩͙✧•̩̩͙*˚✮")
     # For each category, save the the relevant YouTube video urls to the appropriate array
     for i in range(0, len(queries)):
-        print("Storing all " + queries[i] + " urls")
         url = 'https://www.youtube.com/results?search_query=' + queries[i] + '+study+ambience'
         browser.get(url)
         # Parse html of webpage
@@ -41,8 +41,11 @@ def loadUrls(browser):
             ytURLS.append(a['href'])
         cat = Category(queries[i], ytURLS)
         categories.append(cat)
-        print(categories[i].urls)
+        #print(categories[i].urls)
         # Sleep for 2 seconds to make sure webpage has been thoroughly parsed
         time.sleep(2)
-    
+        print("╭➜ ๑ ̟ ̊" + queries[i] + " videos loaded.")
+
+    print("๑ ⋆˚₊⋆────ʚ study-shuffle is ready! Press the button to begin ɞ────⋆˚₊⋆ ๑")
+
     return categories
