@@ -12,6 +12,7 @@ def write_data(x):
     time.sleep(0.05)
 
 def read_data():
+    arduino.flushInput()
     data = arduino.readline().decode("utf-8")
     #if(len(data) > 0):
         #print(data)
@@ -25,6 +26,7 @@ trigger = '1'
 
 while True:
     buttonPressed = False
+    print("๑ ⋆˚₊⋆────ʚ Press the button to continue ɞ────⋆˚₊⋆ ๑")
     #Enable button
     write_data("e")
     while not buttonPressed:

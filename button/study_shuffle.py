@@ -25,7 +25,7 @@ def shuffle(categories):
     # Parse for YouTube video ID
     videoID = categories[categoryNum].urls[rand].split('=')
     # Open video in browser and play it
-    print("Playing " + query + " video #" + str(rand))
+    print("๑ ⋆˚₊⋆────ʚ "+"Playing " + query + " video #" + str(rand)+" ɞ────⋆˚₊⋆ ๑")
     serv = Service('./chromedriver')
     browser = webdriver.Chrome(service=serv)
     browser.get('https://www.youtube.com/embed/' + videoID[1] + '?autoplay=1')
@@ -34,4 +34,5 @@ def shuffle(categories):
         while(browser.title):
             time.sleep(1)
     except Exception as e:
-        print("Browser closed")
+        time.sleep(0.1)
+        #print("Browser closed")

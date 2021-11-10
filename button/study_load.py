@@ -25,7 +25,7 @@ def loadUrls(browser):
     queries = ['anime', 'beach', 'window', 'r&b']
     hrefs = []
     categories = []
-    print("✮*•̩̩͙✧•̩̩͙*˚✧*˚　Loading YouTube Videos in Each Category　˚*✧˚*•̩̩͙✧•̩̩͙*˚✮")
+    print("✮*•̩̩͙✧•̩̩͙*˚✧*˚　Loading... Please wait　˚*✧˚*•̩̩͙✧•̩̩͙*˚✮")
     # For each category, save the the relevant YouTube video urls to the appropriate array
     for i in range(0, len(queries)):
         url = 'https://www.youtube.com/results?search_query=' + queries[i] + '+study+ambience'
@@ -45,7 +45,5 @@ def loadUrls(browser):
         # Sleep for 2 seconds to make sure webpage has been thoroughly parsed
         time.sleep(2)
         print("╭➜ ๑ ̟ ̊" + queries[i] + " videos loaded.")
-
-    print("๑ ⋆˚₊⋆────ʚ study-shuffle is ready! Press the button to begin ɞ────⋆˚₊⋆ ๑")
 
     return categories
