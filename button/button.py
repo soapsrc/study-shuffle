@@ -25,6 +25,7 @@ trigger = '1'
 
 while True:
     buttonPressed = False
+    #Enable button
     write_data("e")
     while not buttonPressed:
         value = read_data()
@@ -32,5 +33,7 @@ while True:
         set2 = set(trigger.split())
         if(set1 == set2):
             print("Button pressed")
+            # Disable button
+            write_data("d")
             buttonPressed = True
     study_shuffle.shuffle(categories)

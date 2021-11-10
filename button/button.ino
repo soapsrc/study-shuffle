@@ -24,11 +24,13 @@ void loop() {
   }
         
   if (content != "") {
-       Serial.println("py: " + content);
+       //Serial.println("py: " + content);
   }
 
   if (content == "e")
     disableButton = false;
+  else if (content == "d")
+    disableButton = true;
     
   // read the state of the pushbutton value:
   buttonState = digitalRead(buttonPin);
