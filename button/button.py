@@ -1,5 +1,3 @@
-## Code obtained from https://create.arduino.cc/projecthub/ansh2919/serial-communication-between-python-and-arduino-e7cce0
-
 import serial
 import time
 import study_load

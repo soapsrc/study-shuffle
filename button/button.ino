@@ -14,9 +14,10 @@ void setup() {
 }
 
 bool disableButton = true;
+String content = "";
+char character;
+
 void loop() {
-  String content = "";
-  char character;
       
   while(Serial.available()) {
        character = Serial.read();

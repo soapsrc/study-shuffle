@@ -21,11 +21,11 @@ def shuffle(categories):
 
     categoryNum = num -1
     # Select a random video
-    rand = random.randint(0,len(categories[categoryNum].urls))
+    rand = random.randint(0,len(categories[categoryNum].urls)-1)
     # Parse for YouTube video ID
     videoID = categories[categoryNum].urls[rand].split('=')
     # Open video in browser and play it
-    print("๑ ⋆˚₊⋆────ʚ "+"Playing " + query + " video #" + str(rand)+" ɞ────⋆˚₊⋆ ๑")
+    print("๑ ⋆˚₊⋆────ʚ "+"Playing " + query + " video #" + str(rand+1)+" ɞ────⋆˚₊⋆ ๑")
     serv = Service('./chromedriver')
     browser = webdriver.Chrome(service=serv)
     browser.get('https://www.youtube.com/embed/' + videoID[1] + '?autoplay=1')
