@@ -7,7 +7,7 @@ Arduino project that plays a random ambience video from YouTube based on a chose
 
 ## How to run simu.py (no Arduino reqired)
 Invoke the following on the command line:
-1. `cd src`
+1. `cd button`
 2. `pip3 install beautifulsoup4`
 3. `pip3 install selenium`
 4. `python3 simu.py`
