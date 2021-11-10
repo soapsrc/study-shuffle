@@ -10,11 +10,11 @@ class Category:
     self.urls = 	urls
 
 def driverSetup():
-        # Hides the browser window containing the search results
-   # co = webdriver.ChromeOptions()
-    #co.add_argument('headless')
-   # co.add_argument('window-size=1920x1080')
-    #co.add_argument("disable-gpu")
+    # Hides the browser window containing the search results
+    co = webdriver.ChromeOptions()
+    co.add_argument('headless')
+    co.add_argument('window-size=1920x1080')
+    co.add_argument("disable-gpu")
     # Path to webdriver
     serv = Service('./chromedriver')
     browser = webdriver.Chrome(service=serv, options=co)

@@ -2,27 +2,35 @@
 
 import serial
 import time
-import re
+import study_load
+import study_shuffle
 
-trigger = '1'
+arduino = serial.Serial(port='/dev/cu.usbmodem101', baudrate=9600, timeout=5)
 
-arduino = serial.Serial(port='/dev/cu.usbmodem1101', baudrate=9600, timeout=.1)
-
-def write_read(x):
+def write_data(x):
     arduino.write(bytes(x, 'utf-8'))
     time.sleep(0.05)
-    data = arduino.readline()
-    return data
 
 def read_data():
     data = arduino.readline().decode("utf-8")
-    #print(data)
+    if(len(data) > 0):
+        print(data)
     return data
 
+# Load all YouTube Urls
+browser = study_load.driverSetup()
+categories = study_load.loadUrls(browser)
+
+trigger = '1'
+
 while True:
-    time.sleep(1)
-    value = read_data()
-    set1 = set(value.split())
-    set2 = set(trigger.split())
-    if(set1 == set2):
-        print("Button pressed")
+    buttonPressed = False
+    write_data("e")
+    while not buttonPressed:
+        value = read_data()
+        set1 = set(value.split())
+        set2 = set(trigger.split())
+        if(set1 == set2):
+            print("Button pressed")
+            buttonPressed = True
+    study_shuffle.shuffle(categories)

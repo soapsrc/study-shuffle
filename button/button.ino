@@ -1,4 +1,3 @@
-
 // constants won't change. They're used here to set pin numbers:
 const int buttonPin = A8;     // the number of the pushbutton pin
 const int ledPin =  8;      // the number of the LED pin
@@ -14,12 +13,28 @@ void setup() {
   pinMode(buttonPin, INPUT);
 }
 
+bool disableButton = true;
 void loop() {
+  String content = "";
+  char character;
+      
+  while(Serial.available()) {
+       character = Serial.read();
+       content.concat(character);
+  }
+        
+  if (content != "") {
+       Serial.println("py: " + content);
+  }
+
+  if (content == "e")
+    disableButton = false;
+    
   // read the state of the pushbutton value:
   buttonState = digitalRead(buttonPin);
 
   // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
-  if (buttonState == HIGH) {
+  if (buttonState == HIGH && !disableButton) {
     // turn LED on:
     digitalWrite(ledPin, HIGH);
     Serial.println(1);
