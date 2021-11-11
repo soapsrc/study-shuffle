@@ -28,7 +28,7 @@ def loadUrls(browser):
     print("✮*•̩̩͙✧•̩̩͙*˚✧*˚　Loading... Please wait　˚*✧˚*•̩̩͙✧•̩̩͙*˚✮")
     # For each category, save the the relevant YouTube video urls to the appropriate array
     for i in range(0, len(queries)):
-        url = 'https://www.youtube.com/results?search_query=' + queries[i] + '+study+ambience'
+        url = 'https://www.youtube.com/results?search_query=' + queries[i] + '+study+playlist+ambience'
         browser.get(url)
         # Parse html of webpage
         source = browser.page_source

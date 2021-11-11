@@ -28,32 +28,43 @@ void setup_sj() {
 
 int prevPos = serPos;
 
-void loop_sj() {
+int loop_sj() {
   xPosition = analogRead(VRx);
   yPosition = analogRead(VRy);
   SW_state = digitalRead(SW);
   mapX = map(xPosition, 0, 1023, -512, 512);
   mapY = map(yPosition, 0, 1023, -512, 512);
-  
+  /**
   Serial.print("X: ");
   Serial.print(mapX);
   Serial.print(" | Y: ");
   Serial.print(mapY);
   Serial.print(" | Button: ");
   Serial.println(SW_state);
+  */
+
+  int category = 0;
 
   // Left
-  if(mapX < -500)
+  if(mapX < -500){
     serPos = 0;
+    category = 2;
+  }
   //Up
-  else if(mapY > 500)
+  else if(mapY > 500){
     serPos = 180;
+    category = 3;
+  }
   // Right
-  else if (mapX > 500)
+  else if (mapX > 500){
     serPos = 90;
+    category = 4;
+  }
   // Down
-  else if(mapY < -500)
+  else if(mapY < -500){
     serPos = 45;
+    category = 5;
+  }
 
   ser.write(serPos);
 
@@ -63,6 +74,6 @@ void loop_sj() {
   prevPos = serPos;
     
 
-  delay(100);
+  return category;
   
 }

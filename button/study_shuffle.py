@@ -6,10 +6,10 @@ import random
 import time
 
 
-def shuffle(categories):
+def shuffle(categories, choice):
 
     # Pick a category
-    num = int(input("1 - Anime\n2 - Beach\n3 - Window\n4 - R&B\nEnter the number associated to the video category you want to study to\n"))
+    num = choice
     if num == 1:    # Anime
         query = "anime"
     elif num == 2:  # Beach

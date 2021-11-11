@@ -15,26 +15,40 @@ void setup() {
 }
 
 bool disableButton = true;
-String content = "";
+bool disableJoystick = true;
 char character;
 
 void loop() {
+  int category;
+  String content;
 
-  loop_sj();
-      
-  while(Serial.available()) {
-       character = Serial.read();
-       content.concat(character);
-  }
-        
-  if (content != "") {
-       //Serial.println("py: " + content);
+  while (Serial.available()) {
+    delay(3);  //delay to allow buffer to fill 
+    if (Serial.available() >0) {
+      char c = Serial.read();  //gets one byte from serial buffer
+      content += c; //makes the string content
+    } 
   }
 
-  if (content == "e")
-    disableButton = false;
-  else if (content == "d")
+  if (content.length() >0) {
+      //Serial.println(content); //see what was received
+  }
+
+  if (content == "j")
+    disableJoystick = false;
+  else if (content == "d"){
+    disableJoystick = true;
     disableButton = true;
+  }
+  else if (content == "b"){
+    disableButton = false;
+    Serial.print("Button enabled!");
+  }
+
+  if(!disableJoystick)
+    category = loop_sj();
+  if (category!=0)
+    Serial.println(category);
     
   // read the state of the pushbutton value:
   buttonState = digitalRead(buttonPin);
@@ -49,5 +63,7 @@ void loop() {
     digitalWrite(ledPin, LOW);
   }
   digitalRead(ledPin);
+
+  delay(100);
 
 }
