@@ -27,6 +27,7 @@ void setup_sj() {
 }
 
 int prevPos = serPos;
+bool servoMoved = false;
 
 int loop_sj() {
   xPosition = analogRead(VRx);
@@ -47,33 +48,37 @@ int loop_sj() {
 
   // Left
   if(mapX < -500){
-    serPos = 0;
-    category = 2;
-  }
-  //Up
-  else if(mapY > 500){
-    serPos = 180;
-    category = 3;
+    serPos -= 45;
+    servoMoved = true;
   }
   // Right
   else if (mapX > 500){
-    serPos = 90;
-    category = 4;
+    serPos += 45;
+    servoMoved = true;
   }
-  // Down
-  else if(mapY < -500){
-    serPos = 45;
-    category = 5;
-  }
+
+  if(serPos < 0)
+    serPos = 0;
+  else if(serPos>180)
+    serPos = 180;
+
+  if(serPos == 0 && servoMoved)
+    category = 2;   // anime
+  else if(serPos == 45)
+    category = 5;   // r&b
+  else if(serPos == 90)
+    category = 4;   // window
+  else if(serPos == 135)
+    category = 6;   // white noise
+  else if(serPos == 180)
+    category = 3;   // beach
 
   ser.write(serPos);
-
-  if(prevPos != serPos)
-    Serial.println(serPos);
     
   prevPos = serPos;
-    
 
+  delay(300);
+    
   return category;
   
 }

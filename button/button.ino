@@ -16,7 +16,9 @@ void setup() {
 
 bool disableButton = true;
 bool disableJoystick = true;
+bool buttonPressed = false;
 char character;
+int prevCategory = 0;
 
 void loop() {
   int category;
@@ -39,25 +41,29 @@ void loop() {
   else if (content == "d"){
     disableJoystick = true;
     disableButton = true;
+    buttonPressed = false;
   }
   else if (content == "b"){
     disableButton = false;
-    Serial.print("Button enabled!");
   }
 
-  if(!disableJoystick)
+  if(!disableJoystick){
     category = loop_sj();
-  if (category!=0)
-    Serial.println(category);
+    if (category != 0 && !buttonPressed)
+      Serial.println(category);
+    prevCategory = category;
+  }
     
   // read the state of the pushbutton value:
   buttonState = digitalRead(buttonPin);
 
   // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
   if (buttonState == HIGH && !disableButton) {
+    buttonPressed = true;
     // turn LED on:
     digitalWrite(ledPin, HIGH);
-    Serial.println(1);
+    for(int i = 0; i < 10; i++)
+      Serial.println(1);
   } else {
     // turn LED off:
     digitalWrite(ledPin, LOW);
