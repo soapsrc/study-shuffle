@@ -13,7 +13,7 @@ def breaktime():
     pygame.mixer.music.play()
 
 def studytime():
-    print("Time for a 5 minute break!")
+    print("Back to studying!")
     pygame.mixer.init()
     pygame.mixer.music.load("study.mp3")
     pygame.mixer.music.play()
@@ -49,11 +49,17 @@ def shuffle(categories, choice):
         # While browser is running and not quit
         while(browser.title):
             # duration is in seconds
-            t = Timer(20, breaktime)
-            t.start()
+            studying = Timer(20, breaktime)
+            studying.start()
 
             # wait for time completion
-            t.join()
+            studying.join()
+            # duration is in seconds
+            breaking = Timer(5, studytime)
+            breaking.start()
+
+            # wait for time completion
+            breaking.join()
     except Exception as e:
         time.sleep(0.1)
         #print("Exception:")
