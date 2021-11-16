@@ -14,7 +14,10 @@ def write_data(x):
     time.sleep(0.5)
 
 def read_data():
-    arduino.flushInput()
+    try:
+        arduino.flushInput()
+    except Exception as e:
+        time.sleep(0.1)
     data = arduino.readline().decode("utf-8")
     return data
 
@@ -68,4 +71,5 @@ while True:
             # Disable button and joystick
             write_data("d")
             buttonPressed = True
+    write_data("g")
     study_shuffle.shuffle(categories, choice)

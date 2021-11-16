@@ -1,5 +1,13 @@
+ #include <Servo.h>
+
+Servo ser2;
+int serPin2 = 10;
+int serPos2 = 0;
+
 const int buttonPin = A8;     // the number of the pushbutton pin
-const int ledPin =  8;      // the number of the LED pin
+const int yellow =  8;      // the number of the LED pin
+const int green = 7;
+const int red = 6;
 
 // variables will change:
 int buttonState = 0;         // variable for reading the pushbutton status
@@ -8,9 +16,14 @@ void setup() {
   setup_sj();
   Serial.begin(9600);   
   // initialize the LED pin as an output:
-  pinMode(ledPin, OUTPUT);
+  pinMode(yellow, OUTPUT);
+  pinMode(red, OUTPUT);
+  pinMode(green, OUTPUT);
   // initialize the pushbutton pin as an input:
   pinMode(buttonPin, INPUT);
+
+  ser2.attach(serPin2);
+  ser2.write(serPos2);
 
 }
 
@@ -46,6 +59,18 @@ void loop() {
   else if (content == "b"){
     disableButton = false;
   }
+  else if (content == "g"){
+    digitalWrite(green, HIGH);
+    digitalWrite(red, LOW);
+  }
+  else if (content == "r"){
+    for (serPos2 = 0; serPos2 <= 180; serPos2 += 45){
+      ser2.write(serPos2);
+      delay(100);
+    }
+    digitalWrite(red, HIGH);
+    digitalWrite(green, LOW);
+  }
 
   if(!disableJoystick){
     category = loop_sj();
@@ -61,15 +86,14 @@ void loop() {
   if (buttonState == HIGH && !disableButton) {
     buttonPressed = true;
     // turn LED on:
-    digitalWrite(ledPin, HIGH);
+    digitalWrite(yellow, HIGH);
     for(int i = 0; i < 10; i++)
       Serial.println(1);
   } else {
     // turn LED off:
-    digitalWrite(ledPin, LOW);
+    digitalWrite(yellow, LOW);
   }
-  digitalRead(ledPin);
-
+  
   delay(100);
 
 }

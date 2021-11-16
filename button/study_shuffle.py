@@ -4,19 +4,31 @@ from selenium.common.exceptions import WebDriverException
 import random
 import time
 from threading import Timer
-import pygame
+import notification
+import serial
+
+arduino = serial.Serial(port='/dev/cu.usbmodem101', baudrate=9600, timeout=1)
+
+def write_data(x):
+    try:
+        arduino.write(bytes(x, 'utf-8'))
+    except serial.SerialException:
+        time.sleep(0.1)
+    time.sleep(0.5)
 
 def breaktime():
-    print("Time for a 5 minute break!")
-    pygame.mixer.init()
-    pygame.mixer.music.load("break.mp3")
-    pygame.mixer.music.play()
+    message = "Time for a 5 minute break!"
+    print(message)
+    notification.alert(message, True)
+    write_data("r")
+
 
 def studytime():
-    print("Back to studying!")
-    pygame.mixer.init()
-    pygame.mixer.music.load("study.mp3")
-    pygame.mixer.music.play()
+    message = "Back to studying!"
+    print(message)
+    notification.alert(message, False)
+    write_data("g")
+
 
 
 def shuffle(categories, choice):
@@ -61,5 +73,6 @@ def shuffle(categories, choice):
             # wait for time completion
             breaking.join()
     except Exception as e:
-        time.sleep(0.1)
+        breaking.cancel()
+        studying.cancel()
         #print("Exception:")
