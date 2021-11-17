@@ -1,13 +1,14 @@
  #include <Servo.h>
 
+// Pointing arrow servo
 Servo ser;
 int serPin = 9;
 int serPos = 0;
-
+// Pins for the joystick
 int VRx = A0;
 int VRy = A1;
 int SW = 2;
-
+// Joystick data
 int xPosition = 0;
 int yPosition = 0;
 int SW_state = 0;

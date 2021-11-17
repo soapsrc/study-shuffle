@@ -1,25 +1,26 @@
  #include <Servo.h>
 
+// Food dispensor servo
 Servo ser2;
 int serPin2 = 10;
 int serPos2 = 0;
 
-const int buttonPin = A8;     // the number of the pushbutton pin
-const int yellow =  8;      // the number of the LED pin
-const int green = 7;
-const int red = 6;
+const int buttonPin = A9;   // Button that triggers random video to play 
+const int yellow =  6;      // Yellow led light
+const int green = 7;        // Green led light
+const int red = 8;          // Red led light
 
-// variables will change:
-int buttonState = 0;         // variable for reading the pushbutton status
+int buttonState = 0;        // Variable for reading the pushbutton status
 
 void setup() {
+  // Set up the joystick and the pointing servo
   setup_sj();
   Serial.begin(9600);   
-  // initialize the LED pin as an output:
+  // Initialize all LED pins as an output:
   pinMode(yellow, OUTPUT);
   pinMode(red, OUTPUT);
   pinMode(green, OUTPUT);
-  // initialize the pushbutton pin as an input:
+  // Initialize the pushbutton pin as an input:
   pinMode(buttonPin, INPUT);
 
   ser2.attach(serPin2);
@@ -32,21 +33,22 @@ bool disableJoystick = true;
 bool buttonPressed = false;
 char character;
 int prevCategory = 0;
+int greenOn = false;
 
 void loop() {
   int category;
   String content;
 
   while (Serial.available()) {
-    delay(3);  //delay to allow buffer to fill 
+    delay(3);  // Delay to allow buffer to fill 
     if (Serial.available() >0) {
-      char c = Serial.read();  //gets one byte from serial buffer
-      content += c; //makes the string content
+      char c = Serial.read();  // Gets one byte from serial buffer
+      content += c; // Concatenate the string content
     } 
   }
 
   if (content.length() >0) {
-      //Serial.println(content); //see what was received
+      //Serial.println(content); // Print what is being received
   }
 
   if (content == "j")
@@ -60,6 +62,7 @@ void loop() {
     disableButton = false;
   }
   else if (content == "g"){
+    greenOn = true;
     digitalWrite(green, HIGH);
     digitalWrite(red, LOW);
   }
@@ -70,8 +73,21 @@ void loop() {
     }
     digitalWrite(red, HIGH);
     digitalWrite(green, LOW);
+    greenOn = false;
   }
-
+  else if (content == "f"){
+    bool on = false;
+    for(int i = 0; i < 5; i++){
+      if(greenOn)
+        digitalWrite(green, on ? HIGH : LOW);
+      else
+        digitalWrite(red, on ? HIGH : LOW);
+      on = !on;
+      delay(500);
+    }
+    
+  }
+  // if the joystick is not disabled, get the category the arrow is pointing to
   if(!disableJoystick){
     category = loop_sj();
     if (category != 0 && !buttonPressed)
@@ -79,18 +95,19 @@ void loop() {
     prevCategory = category;
   }
     
-  // read the state of the pushbutton value:
+  // Read the state of the pushbutton value:
   buttonState = digitalRead(buttonPin);
 
-  // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
+  // Check if the pushbutton is pressed. If it is, the buttonState is HIGH
   if (buttonState == HIGH && !disableButton) {
     buttonPressed = true;
-    // turn LED on:
+    // turn yellow LED on:
     digitalWrite(yellow, HIGH);
+    // Print 1 to serial to communicate that button has been pushed
     for(int i = 0; i < 10; i++)
       Serial.println(1);
   } else {
-    // turn LED off:
+    // turn yellow LED off:
     digitalWrite(yellow, LOW);
   }
   

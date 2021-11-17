@@ -17,17 +17,21 @@ def write_data(x):
     time.sleep(0.5)
 
 def breaktime():
+    # Flash light to signal last 5 seconds
+    write_data("f")
+    write_data("r")
     message = "Time for a 5 minute break!"
     print(message)
     notification.alert(message, True)
-    write_data("r")
 
 
 def studytime():
+    # Flash light to signal last 5 seconds
+    write_data("f")
+    write_data("g")
     message = "Back to studying!"
     print(message)
     notification.alert(message, False)
-    write_data("g")
 
 
 
@@ -66,6 +70,8 @@ def shuffle(categories, choice):
 
             # wait for time completion
             studying.join()
+            # check if browser is still open
+            browser.title
             # duration is in seconds
             breaking = Timer(5, studytime)
             breaking.start()
