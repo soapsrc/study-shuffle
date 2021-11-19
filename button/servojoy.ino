@@ -2,7 +2,7 @@
 
 // Pointing arrow servo
 Servo ser;
-int serPin = 9;
+int serPin = 10;
 int serPos = 0;
 // Pins for the joystick
 int VRx = A0;

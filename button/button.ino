@@ -2,8 +2,8 @@
 
 // Food dispensor servo
 Servo ser2;
-int serPin2 = 10;
-int serPos2 = 0;
+int serPin2 = 9;
+int serPos2 = 135;
 
 const int buttonPin = A9;   // Button that triggers random video to play 
 const int yellow =  6;      // Yellow led light
@@ -67,10 +67,11 @@ void loop() {
     digitalWrite(red, LOW);
   }
   else if (content == "r"){
-    for (serPos2 = 0; serPos2 <= 180; serPos2 += 45){
+    for (serPos2 = 135; serPos2 >= 0; serPos2 -= 45){
       ser2.write(serPos2);
       delay(100);
     }
+    ser2.write(135);
     digitalWrite(red, HIGH);
     digitalWrite(green, LOW);
     greenOn = false;
